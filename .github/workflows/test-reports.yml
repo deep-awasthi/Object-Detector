@@ -53,7 +53,7 @@ jobs:
           DATABASE_URL: postgresql://devatlas:devatlas@localhost:5432/devatlas
 
       - name: Build project
-        run: pnpm build
+        run: npx next build
         env:
           DATABASE_URL: postgresql://devatlas:devatlas@localhost:5432/devatlas
 
@@ -118,7 +118,7 @@ jobs:
           DATABASE_URL: postgresql://devatlas:devatlas@localhost:5432/devatlas
 
       - name: Build project
-        run: pnpm build
+        run: npx next build
         env:
           DATABASE_URL: postgresql://devatlas:devatlas@localhost:5432/devatlas
 
