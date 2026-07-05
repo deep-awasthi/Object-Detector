@@ -1,0 +1,92 @@
+.page {
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.toast {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toastSuccess {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.toastError {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.form {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.ctaRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.preview {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 1.5rem;
+}
+
+.previewTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-tertiary);
+  margin-bottom: 1rem;
+}
+
+.emailPreview {
+  padding: 1.5rem;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+  .ctaRow {
+    flex-direction: column;
+  }
+}

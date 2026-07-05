@@ -1,0 +1,155 @@
+.page {
+  padding-top: calc(var(--nav-height) + 4rem);
+  padding-bottom: 6rem;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+}
+
+.searchBox {
+  position: relative;
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem 3rem 1rem 3.5rem;
+  font-size: 1.0625rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+.clearBtn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.375rem;
+  border-radius: 50%;
+  color: var(--color-text-tertiary);
+  transition: all 0.2s;
+}
+
+.clearBtn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.resultCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  transition: all 0.3s ease;
+}
+
+.resultCard:hover {
+  box-shadow: 0 8px 30px var(--color-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.resultContent {
+  flex: 1;
+}
+
+.resultCategory {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.resultTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.resultExcerpt {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.resultMeta {
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+}
+
+.resultArrow {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.resultCard:hover .resultArrow {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-tertiary);
+}
+
+.empty svg {
+  margin-bottom: 1rem;
+}
+
+.empty p {
+  font-size: 1.0625rem;
+}
+
+@media (max-width: 768px) {
+  .resultCard {
+    padding: 1.25rem;
+  }
+}

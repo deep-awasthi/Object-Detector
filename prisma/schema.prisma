@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  password      String
+  avatar        String?
+  bio           String?   @db.Text
+  role          Role      @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  articles      Article[]
+  analytics     Analytics[]
+  settings      SiteSettings?
+
+  @@map("users")
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String?    @db.Text
+  color       String     @default("#3B82F6")
+  icon        String?
+  order       Int        @default(0)
+  enabled     Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  articles    Article[]
+
+  @@index([slug])
+  @@index([enabled])
+  @@map("categories")
+}
+
+model Tag {
+  id        String       @id @default(cuid())
+  name      String       @unique
+  slug      String       @unique
+  createdAt DateTime     @default(now())
+  articles  ArticleTag[]
+
+  @@map("tags")
+}
+
+model Article {
+  id              String       @id @default(cuid())
+  title           String
+  slug            String       @unique
+  content         Json         @db.JsonB
+  contentHtml     String       @db.Text
+  excerpt         String?      @db.Text
+  coverImage      String?
+  published       Boolean      @default(false)
+  featured        Boolean      @default(false)
+  pinned          Boolean      @default(false)
+  readingTime     Int          @default(1)
+  seoTitle        String?
+  seoDescription  String?      @db.Text
+  seoKeywords     String[]
+  canonicalUrl    String?
+  authorId        String
+  categoryId      String
+  publishedAt     DateTime?
+  scheduledAt     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  author          User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  category        Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  tags            ArticleTag[]
+  analytics       Analytics[]
+
+  @@index([slug])
+  @@index([published])
+  @@index([featured])
+  @@index([publishedAt])
+  @@index([categoryId])
+  @@index([authorId])
+  @@map("articles")
+}
+
+model ArticleTag {
+  id        String   @id @default(cuid())
+  articleId String
+  tagId     String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, tagId])
+  @@map("article_tags")
+}
+
+model Media {
+  id          String   @id @default(cuid())
+  name        String
+  url         String
+  publicId    String
+  width       Int?
+  height      Int?
+  format      String?
+  bytes       Int?
+  folder      String?
+  alt         String?
+  createdAt   DateTime @default(now())
+
+  @@map("media")
+}
+
+model SiteSettings {
+  id                String @id @default(cuid())
+  userId            String @unique
+  siteName          String @default("DevAtlas")
+  tagline           String @default("Crafting knowledge for engineers.")
+  logo              String?
+  favicon           String?
+  description       String? @db.Text
+  socialLinks       Json?
+  footerContent     String? @db.Text
+  contactEmail      String?
+  seoDefaultTitle   String?
+  seoDefaultDesc    String? @db.Text
+  analyticsEnabled  Boolean @default(false)
+  newsletterEnabled Boolean @default(true)
+  emailingEnabled   Boolean @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("site_settings")
+}
+
+model Analytics {
+  id          String   @id @default(cuid())
+  articleId   String
+  userId      String
+  eventType   String
+  referrer    String?
+  userAgent   String?
+  ipAddress   String?
+  country     String?
+  createdAt   DateTime @default(now())
+  article     Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([articleId])
+  @@index([createdAt])
+  @@index([eventType])
+  @@map("analytics")
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("subscribers")
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  email     String
+  code      String
+  purpose   String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email, purpose])
+  @@map("otps")
+}
+
+model UpcomingFeature {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  status      String   @default("coming-soon")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("upcoming_features")
+}
+
+enum Role {
+  ADMIN
+}

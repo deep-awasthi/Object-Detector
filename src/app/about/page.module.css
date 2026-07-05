@@ -1,0 +1,116 @@
+.page {
+  padding: 8rem 0 4rem;
+  min-height: 100vh;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.role {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+}
+
+.section {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.bio {
+  font-size: 1.0625rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.bio + .bio {
+  margin-top: 1rem;
+}
+
+.topicsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.topicCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+}
+
+.topicIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.topicName {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.socialLink:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
