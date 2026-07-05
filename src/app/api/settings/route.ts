@@ -4,7 +4,14 @@ import { getSession } from '@/lib/auth'
 
 export async function GET() {
   try {
-    const settings = await prisma.siteSettings.findFirst()
+    const session = await getSession()
+    let settings
+    if (session) {
+      settings = await prisma.siteSettings.findUnique({ where: { userId: session.userId } })
+    }
+    if (!settings) {
+      settings = await prisma.siteSettings.findFirst()
+    }
     return NextResponse.json(settings || {
       siteName: 'DevAtlas',
       tagline: 'Crafting knowledge for engineers.',
