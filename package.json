@@ -36,7 +36,7 @@
     "dompurify": "^3.2.0",
     "framer-motion": "^11.12.0",
     "jose": "^5.9.0",
-    "lexical": "^0.21.0",
+    "lexical": "^0.46.0",
     "lucide-react": "^0.460.0",
     "next": "^15.0.0",
     "nodemailer": "^9.0.3",
