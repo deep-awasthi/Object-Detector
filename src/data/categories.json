@@ -1,0 +1,90 @@
+[
+  {
+    "slug": "java",
+    "name": "Java",
+    "description": "JVM architectures, performance tuning, virtual threads, and Java language specifications.",
+    "color": "#f89820",
+    "icon": "/src/assets/icons/java.svg",
+    "aliases": []
+  },
+  {
+    "slug": "python",
+    "name": "Python",
+    "description": "Python language internals, async programming, data science integrations, and scripting patterns.",
+    "color": "#3b82f6",
+    "icon": "/src/assets/icons/python.svg",
+    "aliases": []
+  },
+  {
+    "slug": "go",
+    "name": "Go",
+    "description": "Go concurrency primitives, microservice patterns, HTTP servers, and high-performance system programs.",
+    "color": "#00add8",
+    "icon": "/src/assets/icons/go.svg",
+    "aliases": ["golang"]
+  },
+  {
+    "slug": "dsa",
+    "name": "DSA",
+    "description": "Data structure complexities, optimal sorting/searching algorithms, trees, and graph search paradigms.",
+    "color": "#a78bfa",
+    "icon": "/src/assets/icons/dsa.svg",
+    "aliases": []
+  },
+  {
+    "slug": "lld",
+    "name": "Low Level Design",
+    "description": "Object-oriented designs, gang-of-four design patterns, SOLID principles, and structural class architectures.",
+    "color": "#34d399",
+    "icon": "/src/assets/icons/lld.svg",
+    "aliases": ["lowleveldesign"]
+  },
+  {
+    "slug": "system-design",
+    "name": "High Level Design",
+    "description": "Large scale platform architectures, caching clusters, queue processing, and system load balancing.",
+    "color": "#60a5fa",
+    "icon": "/src/assets/icons/system-design.svg",
+    "aliases": ["systemdesign", "hld", "highleveldesign", "high-level-design"]
+  },
+  {
+    "slug": "springboot",
+    "name": "Spring Boot",
+    "description": "Production-ready Spring Boot applications, WebFlux, database integrations, and RESTful microservices.",
+    "color": "#6aad3d",
+    "icon": "/src/assets/icons/springboot.svg",
+    "aliases": ["spring"]
+  },
+  {
+    "slug": "backend-technologies",
+    "name": "Backend Technologies",
+    "description": "Server-side runtime environments, API design, message brokers, caching mechanisms, and system performance optimizations.",
+    "color": "#fb923c",
+    "icon": "/src/assets/icons/backend-technologies.svg",
+    "aliases": ["backend", "backendtechnologies", "banckendtecnologies", "banckendtechnologies"]
+  },
+  {
+    "slug": "machine-learning",
+    "name": "Machine Learning",
+    "description": "Model training, neural networks, feature engineering, MLOps pipelines, and applied AI algorithms.",
+    "color": "#e879f9",
+    "icon": "/src/assets/icons/machine-learning.svg",
+    "aliases": ["machinelearning", "ml"]
+  },
+  {
+    "slug": "interview-prep",
+    "name": "Interview Preparation",
+    "description": "Cracking coding rounds, high level design interviews, behavioral tips, resume guidance, and company-specific prep strategies.",
+    "color": "#f472b6",
+    "icon": "/src/assets/icons/interview-prep.svg",
+    "aliases": ["interviewprep"]
+  },
+  {
+    "slug": "interview-experiences",
+    "name": "Interview Experiences",
+    "description": "Real interview stories, company rounds breakdowns, on-site experiences, and hiring process insights.",
+    "color": "#fbbf24",
+    "icon": "/src/assets/icons/interview-experiences.svg",
+    "aliases": ["interviewexperiences", "interviewexperience"]
+  }
+]

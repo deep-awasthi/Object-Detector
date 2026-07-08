@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--space-8) 0;
+  padding: var(--space-6);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+}
+
+.graph {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.graph svg {
+  height: auto;
+  max-width: 100%;
+}
+
+.errorContainer {
+  margin: var(--space-6) 0;
+  padding: var(--space-4);
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: var(--radius-md);
+  color: #991b1b;
+  font-size: 0.9rem;
+}
+
+:root[data-theme='dark'] .errorContainer {
+  background-color: #450a0a;
+  border-color: #991b1b;
+  color: #fca5a5;
+}
+
+.errorMessage {
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.errorChart {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border: none !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: var(--space-2) !important;
+}

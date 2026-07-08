@@ -1,184 +1,245 @@
 # DevAtlas
 
-**Crafting knowledge for engineers.**
+**DevAtlas** is a filesystem-driven technical publication built with React + TypeScript + Vite. You write articles in Microsoft Word (`.docx`), drop them in the right folder, run one command, and they appear on the site fully formatted — with syntax highlighting, diagrams, code blocks, table of contents, and SEO metadata.
 
-A premium, Apple-inspired personal technical blogging platform built with Next.js 15, React 19, TypeScript, and Prisma. Single-author CMS with OTP authentication, email notifications, and a polished reading experience.
+---
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/devatlas.git
-cd devatlas
-pnpm install
-cp .env-dev .env
-pnpm db:generate
-pnpm db:push
-pnpm db:seed
-pnpm dev
+# Install dependencies
+npm install
+
+# Start the dev server (hot reload)
+npm run dev
 ```
 
-| URL | Description |
-|-----|-------------|
-| http://localhost:3001 | Blog |
-| http://localhost:3001/admin | Admin login |
+The site is available at `http://localhost:5173`.
 
-Default credentials: `da.madskull@gmail.com` / `deep123`
+---
 
-## Environment Files
+## Publishing an Article
 
-| File | Purpose | Push to Git? |
-|------|---------|-------------|
-| `.env-dev` | Development config (Ethereal SMTP, local DB) | Yes |
-| `.env-prod` | Production config template (Resend SMTP, Neon DB) | Yes |
-| `.env` | Your local environment (generated from .env-dev) | No |
+### 1. Write your article in Microsoft Word
 
-**Setup:**
-- Development: `cp .env-dev .env`
-- Production: Add values from `.env-prod` to Vercel environment variables
+Write your content in a `.docx` file. Structure it using Word's built-in heading styles:
 
-## Features
+| Word Style | Becomes |
+|---|---|
+| **Heading 1** | Article title (first one found is used as title) |
+| **Heading 2** | Section heading (`##`) |
+| **Heading 3** | Sub-section heading (`###`) |
+| Normal text | Paragraph body |
+| `Courier New` font | Code block |
+| Embedded images | Optimised `.webp` assets |
 
-### Blog
-- Featured & Latest articles from database
-- Category pages with real-time article counts
-- Search by title, content, category, tags
-- Newsletter subscribe form (toggleable from admin)
-- Dark/Light/System theme
-- Responsive mobile-first design
+> **Tip:** The first paragraph after Heading 1 is auto-detected as the article description for SEO and card previews.
 
-### Admin
-- **OTP Authentication** — two-step login with email verification
-- **Session Security** — 15-min inactivity timeout, server restart invalidates tokens
-- **Dashboard** — stats, recent articles, category breakdown
-- **Articles** — create, edit, publish, feature, auto-save drafts every 5s
-- **Categories** — CRUD with enable/disable toggle
-- **Tags** — CRUD with inline editing
-- **Subscribers** — view and manage newsletter subscribers
-- **Newsletter** — compose and send emails to all subscribers with article attachment
-- **Media Library** — upload and manage images
-- **Site Settings** — toggle newsletter, emailing, analytics
-- **Profile** — update name, email, bio, password (OTP-protected)
+---
 
-### Email
-- OTP codes for login and sensitive actions
-- Newsletter notifications when articles are published (toggleable)
-- Unsubscribe link in every email
-- **Dev:** Ethereal SMTP (view emails at ethereal.email)
-- **Prod:** Resend SMTP (real delivery, free 100/day)
+### 2. Place the file in the correct `imports/` folder
 
-## Tech Stack
+The **folder name** determines the category. Create a sub-folder matching one of the supported names and drop your `.docx` inside.
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 15, React 19, TypeScript, CSS Modules |
-| Animations | Framer Motion |
-| Icons | Lucide React |
-| Backend | Next.js Route Handlers |
-| Database | PostgreSQL (Neon for production) |
-| ORM | Prisma |
-| Auth | JWT (jose), bcryptjs, OTP |
-| Email | Nodemailer |
-| Validation | Zod |
-| Package Manager | pnpm |
+```
+imports/
+├── java/
+│   └── my-article.docx
+├── python/
+│   └── asyncio-deep-dive.docx
+├── go/
+│   └── channels-guide.docx
+├── dsa/
+│   └── graph-traversal.docx
+├── lld/
+│   └── factory-pattern.docx
+├── system-design/          ← displayed as "High Level Design"
+│   └── caching-strategies.docx
+├── springboot/
+│   └── reactive-streams.docx
+├── backend-technologies/
+│   └── docker-networking.docx
+├── machine-learning/
+│   └── transformers-explained.docx
+├── interview-prep/
+│   └── behavioral-guide.docx
+└── interview-experiences/
+    └── google-swe-experience.docx
+```
+
+**Category folder aliases** — all of these map to the same internal slug:
+
+| Folder name | Category slug |
+|---|---|
+| `java` | `java` |
+| `python` | `python` |
+| `go`, `golang` | `go` |
+| `dsa` | `dsa` |
+| `lld`, `lowleveldesign` | `lld` |
+| `system-design`, `hld`, `highleveldesign` | `system-design` |
+| `springboot`, `spring` | `springboot` |
+| `backend`, `backendtechnologies`, `backend-technologies` | `backend-technologies` |
+| `machinelearning`, `ml`, `machine-learning` | `machine-learning` |
+| `interviewprep`, `interview-prep` | `interview-prep` |
+| `interviewexperiences`, `interview-experiences` | `interview-experiences` |
+
+---
+
+### 3. Run the import command
+
+```bash
+npm run import
+```
+
+The pipeline will:
+
+1. **Discover** all `.docx` files in `imports/` sub-folders
+2. **Extract** the title, headings, body text, and embedded images from the Word document
+3. **Optimise** images to `.webp` format with thumbnail variants
+4. **Generate** a `.mdx` article file in `src/articles/<category>/`
+5. **Update** `src/articles/index.json` — the master article index
+6. **Update** `src/articles/search-data.json` — the full-text search index
+7. **Regenerate** `public/rss.xml`, `public/sitemap.xml`, and `public/robots.txt`
+
+Changes appear immediately in the running dev server — no restart needed.
+
+---
+
+### 4. Verify on the dev server
+
+The article URL follows this pattern:
+
+```
+http://localhost:5173/<category>/<filename-without-extension>
+```
+
+**Example:**
+```
+imports/python/asyncio-deep-dive.docx
+→ http://localhost:5173/python/asyncio-deep-dive
+```
+
+The article also appears automatically in:
+- **Home page** → Latest Releases (if it's one of the 3 most recent)
+- **Articles page** → All Articles archive (all sort modes)
+- **Category page** → `/<category>`
+- **Search** → full-text search modal (`Cmd+K` / `Ctrl+K`)
+
+---
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+Runs `npm run import` first to ensure the article index is fresh, then TypeScript compilation and Vite bundle. Output goes to `dist/`.
+
+---
+
+## Managing the Upcoming Page
+
+The **Upcoming** page (`/upcoming`) appears in the header navigation automatically when `src/data/upcoming.json` is non-empty.
+
+Edit the file directly to manage featured upcoming topics:
+
+```json
+[
+  {
+    "title": "Feature Name",
+    "description": "Short description of what this feature does.",
+    "status": "in development"
+  },
+  {
+    "title": "Another Feature",
+    "description": "What this feature will bring.",
+    "status": "coming soon"
+  }
+]
+```
+
+**Valid `status` values:**
+
+| Value | Badge |
+|---|---|
+| `"in development"` | In Development |
+| `"coming soon"` | Coming Soon |
+
+To **hide the Upcoming page** from the nav entirely, empty the array:
+
+```json
+[]
+```
+
+---
+
+## Managing Categories Dynamically
+
+Category names, descriptions, accent colors, and custom SVGs are driven by a centralized config file:
+
+```
+src/data/categories.json
+```
+
+To add a new category or update metadata, edit `categories.json` directly. Example entry:
+
+```json
+  {
+    "slug": "rust",
+    "name": "Rust",
+    "description": "Memory safety, systems programming, and high-performance concurrency patterns in Rust.",
+    "color": "#dea584",
+    "icon": "<path d=\"M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z\"/><path d=\"M12 6v12M6 12h12\"/>"
+  }
+```
+
+- **`slug`**: The URL slug (e.g., `rust` for page `/rust`) and name of its directory in `imports/` and `src/articles/`.
+- **`name`**: The human-readable display name.
+- **`description`**: Summary shown on the Category card.
+- **`color`**: Theme accent color (applied to cards, hover state, and shadows).
+- **`icon`**: SVG inner path markup. Rendered dynamically inside a 24x24 SVG container with `stroke="currentColor"`.
+
+---
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── page.tsx                     # Home (featured, latest, newsletter, about)
-│   ├── layout.tsx                   # Root layout (nav/footer for blog, hidden for admin)
-│   ├── middleware.ts                # Sets x-is-admin header for admin routes
-│   ├── not-found.tsx                # Custom 404 page
-│   ├── unsubscribe/page.tsx         # Newsletter unsubscribe page
-│   ├── articles/                    # Article listing and detail pages
-│   ├── categories/                  # Category listing and detail pages
-│   ├── about/page.tsx               # About page
-│   ├── search/page.tsx              # Search page
-│   └── admin/
-│       ├── layout.tsx               # Admin sidebar with auth guard
-│       ├── login/page.tsx           # Two-step login (credentials + OTP)
-│       └── dashboard/
-│           ├── page.tsx             # Dashboard with stats
-│           ├── articles/            # Article management
-│           ├── categories/          # Category management
-│           ├── tags/page.tsx        # Tag management
-│           ├── subscribers/         # Subscriber list
-│           ├── newsletter/          # Newsletter composer
-│           ├── media/               # Media library
-│           ├── settings/            # Site settings
-│           └── profile/             # Profile editor
-├── components/
-│   ├── Navigation.tsx               # Blog navigation
-│   ├── Footer.tsx                   # Blog footer
-│   ├── ThemeProvider.tsx            # Theme context
-│   ├── LoadingScreen.tsx            # Loading animation
-│   ├── AnimatedSection.tsx          # Scroll animations
-│   └── Newsletter.tsx               # Newsletter subscribe form
-├── lib/
-│   ├── prisma.ts                    # Prisma client
-│   ├── auth.ts                      # JWT + session
-│   ├── email.ts                     # SMTP transport (Ethereal dev / Resend prod)
-│   ├── otp.ts                       # OTP utilities
-│   ├── validators.ts                # Zod schemas
-│   ├── utils.ts                     # Utilities
-│   └── quotes.ts                    # Engineering quotes
-└── middleware.ts                     # Admin route headers
-
-public/
-├── favicon.svg                      # Browser tab icon
-└── icon.svg                         # App icon / PWA icon
+DevAtlas/
+├── imports/                    ← Drop .docx files here to publish
+│   └── <category>/
+│       └── article.docx
+│
+├── src/
+│   ├── articles/               ← Auto-generated by npm run import
+│   │   ├── index.json          ← Article metadata index (source of truth)
+│   │   ├── search-data.json    ← Full-text search index
+│   │   └── <category>/
+│   │       └── article.mdx     ← Rendered article content
+│   │
+│   ├── data/
+│   │   └── upcoming.json       ← Manage upcoming features here
+│   │
+│   ├── pages/                  ← Page components (Homepage, ArticlePage, etc.)
+│   ├── layouts/                ← Header, Footer, Layout wrapper
+│   └── components/             ← Reusable UI components
+│
+├── scripts/
+│   └── import.ts               ← Import pipeline (run via npm run import)
+│
+└── public/
+    ├── articles/assets/        ← Optimised article images (.webp)
+    ├── rss.xml                 ← Auto-generated RSS feed
+    ├── sitemap.xml             ← Auto-generated sitemap
+    └── robots.txt              ← Auto-generated robots.txt
 ```
 
-## Database Models
+---
 
-| Model | Description |
-|-------|-------------|
-| User | Admin user with email, password, role |
-| Category | Article categories with color, icon, enabled flag |
-| Tag | Article tags |
-| Article | Posts with HTML, SEO, featured/pinned flags |
-| ArticleTag | Many-to-many join |
-| Media | Uploaded files |
-| SiteSettings | Config with newsletter/emailing toggles |
-| Analytics | Page view tracking |
-| Subscriber | Newsletter subscribers |
-| Otp | Verification codes with expiry |
-
-## SMTP Configuration
-
-| Mode | Provider | Where to view emails |
-|------|----------|---------------------|
-| Development | Ethereal | https://ethereal.email (login with creds in .env-dev) |
-| Production | Resend | Real inbox delivery |
-
-## Deployment
-
-### Vercel (Recommended)
-1. Push to GitHub
-2. Import in Vercel
-3. Copy values from `.env-prod` to Vercel environment variables
-4. Deploy
-
-### Docker
-```bash
-docker compose up -d
-docker compose exec app npx prisma db push
-docker compose exec app npx tsx prisma/seed.ts
-```
-
-## Scripts
+## Available Commands
 
 | Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Production build |
-| `pnpm start` | Start production server |
-| `pnpm db:generate` | Generate Prisma client |
-| `pnpm db:push` | Push schema to database |
-| `pnpm db:seed` | Seed database |
-| `pnpm db:studio` | Open Prisma Studio |
-
-## License
-
-MIT
+|---|---|
+| `npm run dev` | Start the local dev server with hot module reload |
+| `npm run import` | Process all `.docx` files in `imports/` and publish them |
+| `npm run build` | Import + TypeScript check + Vite production bundle |
+| `npm run preview` | Locally preview the production build |

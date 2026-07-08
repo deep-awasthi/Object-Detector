@@ -1,0 +1,209 @@
+.aboutPage {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+/* ── Hero Section ── */
+.heroSection {
+  margin-bottom: 4.5rem;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1.75rem;
+}
+
+.accent {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.accentStrong {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.heroLead {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Section ── */
+.section {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 1.75rem;
+}
+
+/* ── Why DevAtlas Grid ── */
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.whyCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.75rem 1.5rem;
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.whyCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.1);
+}
+
+.whyNum {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent-primary);
+  opacity: 0.25;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+.whyCardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.whyCardText {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ── Contact Cards ── */
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 660px) {
+  .contactGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.25rem 1.1rem 1.1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  color: var(--text-secondary);
+}
+
+.contactCard:hover {
+  transform: translateY(-3px);
+}
+
+.contactCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  transition: background 0.25s, color 0.25s;
+  flex-shrink: 0;
+}
+
+.contactCardName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.25s;
+}
+
+.contactCardDesc {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+
+/* ── Email ── */
+.contactEmail:hover { border-color: #10b981; box-shadow: 0 0 18px rgba(16,185,129,0.18); }
+.contactEmail:hover .contactCardIcon { background: rgba(16,185,129,0.12); color: #10b981; }
+.contactEmail:hover .contactCardName { color: #10b981; }
+
+/* ── GitHub ── */
+.contactGithub:hover { border-color: #e2e8f0; box-shadow: 0 0 18px rgba(226,232,240,0.18); }
+.contactGithub:hover .contactCardIcon { background: rgba(226,232,240,0.1); color: #e2e8f0; }
+.contactGithub:hover .contactCardName { color: #e2e8f0; }
+
+/* ── LinkedIn ── */
+.contactLinkedin:hover { border-color: #0a66c2; box-shadow: 0 0 18px rgba(10,102,194,0.25); }
+.contactLinkedin:hover .contactCardIcon { background: rgba(10,102,194,0.15); color: #4b9fff; }
+.contactLinkedin:hover .contactCardName { color: #4b9fff; }
+
+/* ── X ── */
+.contactX:hover { border-color: #e2e8f0; box-shadow: 0 0 18px rgba(226,232,240,0.15); }
+.contactX:hover .contactCardIcon { background: rgba(226,232,240,0.1); color: #e2e8f0; }
+.contactX:hover .contactCardName { color: #e2e8f0; }
+
+/* ── Medium ── */
+.contactMedium:hover { border-color: #ffc017; box-shadow: 0 0 18px rgba(255,192,23,0.22); }
+.contactMedium:hover .contactCardIcon { background: rgba(255,192,23,0.12); color: #ffc017; }
+.contactMedium:hover .contactCardName { color: #ffc017; }

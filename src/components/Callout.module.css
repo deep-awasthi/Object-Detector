@@ -1,0 +1,76 @@
+.callout {
+  margin: var(--space-6) 0;
+  padding: var(--space-4) var(--space-6);
+  border-left: 4px solid;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.note {
+  background-color: var(--co-note-bg);
+  border-left-color: var(--co-note-border);
+  color: var(--co-note-text);
+}
+
+.note .icon {
+  color: var(--co-note-icon);
+}
+
+.tip {
+  background-color: var(--co-tip-bg);
+  border-left-color: var(--co-tip-border);
+  color: var(--co-tip-text);
+}
+
+.tip .icon {
+  color: var(--co-tip-icon);
+}
+
+.warning {
+  background-color: var(--co-warning-bg);
+  border-left-color: var(--co-warning-border);
+  color: var(--co-warning-text);
+}
+
+.warning .icon {
+  color: var(--co-warning-icon);
+}
+
+.important {
+  background-color: var(--co-important-bg);
+  border-left-color: var(--co-important-border);
+  color: var(--co-important-text);
+}
+
+.important .icon {
+  color: var(--co-important-icon);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.title {
+  text-transform: capitalize;
+}
+
+.content {
+  color: inherit;
+}
+
+.content p {
+  margin-bottom: var(--space-2);
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
