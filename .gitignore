@@ -1,0 +1,52 @@
+# ── IDE & System Files ──
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Local Environment & Secrets ──
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+
+# ── Local Storage & Databases (Docker Volumes) ──
+postgres_data/
+qdrant_data/
+ollama_data/
+upload_data/
+api_logs/
+data/
+uploads/
+
+# ── Backend (Spring Boot / Maven) ──
+backend/target/
+backend/.flattened-pom.xml
+backend/bin/
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/.factorypath
+
+# ── Frontend (React / Vite / Node) ──
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.svelte-kit/
+frontend/.next/
+frontend/coverage/
+frontend/.eslintcache
+frontend/.parcel-cache/
+frontend/.cache/
+frontend/out/
+
+# ── Docker ──
+.docker-temp/
