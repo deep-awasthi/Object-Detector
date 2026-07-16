@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-ssr/
+.idea/
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+.eslintcache
+.parcel-cache/
+.cache/
+out/

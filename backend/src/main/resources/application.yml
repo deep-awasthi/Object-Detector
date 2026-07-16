@@ -1,0 +1,154 @@
+spring:
+  application:
+    name: deepclone-ai
+
+  # ──────────────── Database ────────────────
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:deepclone}
+    username: ${DB_USER:deepclone}
+    password: ${DB_PASSWORD:deepclone}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: public
+        jdbc:
+          time_zone: UTC
+
+  # ──────────────── File Upload ────────────────
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # ──────────────── Spring AI — Ollama ────────────────
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        options:
+          model: ${OLLAMA_DEFAULT_MODEL:qwen2.5:latest}
+          temperature: 0.7
+          top-p: 0.9
+          num-ctx: 8192
+      embedding:
+        options:
+          model: ${OLLAMA_EMBEDDING_MODEL:nomic-embed-text:latest}
+
+    # ──────────────── Qdrant Vector Store ────────────────
+    vectorstore:
+      qdrant:
+        host: ${QDRANT_HOST:localhost}
+        port: ${QDRANT_PORT:6334}
+        collection-name: deepclone_vectors
+        initialize-schema: true
+
+# ──────────────── Server ────────────────
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    mime-types: application/json,text/plain,text/html
+  error:
+    include-message: never
+    include-stacktrace: never
+
+# ──────────────── Actuator ────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+
+# ──────────────── OpenAPI / Swagger ────────────────
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  show-actuator: false
+
+# ──────────────── Logging ────────────────
+logging:
+  level:
+    root: INFO
+    ai.deepclone: DEBUG
+    org.springframework.security: INFO
+    org.springframework.ai: INFO
+    org.hibernate.SQL: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"
+  file:
+    name: logs/deepclone-ai.log
+
+# ──────────────── Application Properties ────────────────
+deepclone:
+  jwt:
+    secret: ${JWT_SECRET:change-this-secret-in-production-at-least-512-bits-long-for-hs512-algorithm}
+    access-token-expiry-ms: ${JWT_ACCESS_EXPIRY_MS:900000}        # 15 minutes
+    refresh-token-expiry-ms: ${JWT_REFRESH_EXPIRY_MS:2592000000}  # 30 days
+
+  security:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3000,http://localhost:5173}
+    rate-limit:
+      capacity: 100
+      refill-tokens: 100
+      refill-period-seconds: 60
+
+  storage:
+    base-path: ${STORAGE_PATH:./data/uploads}
+
+  ai:
+    models:
+      - id: qwen2.5:latest
+        name: "Qwen 2.5 (4B)"
+        description: "Default model — balanced quality and speed"
+        default: true
+      - id: gemma3:4b
+        name: "Gemma 3 (4B)"
+        description: "Google's Gemma 3, great for reasoning"
+        default: false
+      - id: llama3.2:latest
+        name: "Llama 3.2 (3B)"
+        description: "Meta's Llama 3.2 — fast and capable"
+        default: false
+    rag:
+      top-k: 5
+      similarity-threshold: 0.7
+    prompt:
+      max-context-length: 6000
+      max-memories: 10
+      max-conversation-history: 20
+
+  memory:
+    auto-extract: true
+    max-importance: 10

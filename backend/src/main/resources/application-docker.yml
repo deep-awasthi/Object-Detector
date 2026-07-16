@@ -1,0 +1,19 @@
+# Docker profile — overrides for containerized deployment
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/deepclone
+    username: deepclone
+    password: ${DB_PASSWORD:deepclone_secret}
+
+  ai:
+    ollama:
+      base-url: http://ollama:11434
+    vectorstore:
+      qdrant:
+        host: qdrant
+        port: 6334
+
+logging:
+  level:
+    root: INFO
+    ai.deepclone: INFO
